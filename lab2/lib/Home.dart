@@ -40,6 +40,15 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _currentIndex = 0;
+          });
+        },
+        tooltip: 'Increment',
+        child: Icon(Icons.favorite),
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

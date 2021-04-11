@@ -3,35 +3,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<Post> fetchAlbum() async {
+Future<Album> fetchAlbum() async {
   final response =
-      await http.get(Uri.https('jsonplaceholder.typicode.com', 'posts/1'));
+      await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
 
   if (response.statusCode == 200) {
-    return Post.fromJson(jsonDecode(response.body));
+    return Album.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
 }
 
-class Post {
+class Album {
   final int userId;
   final int id;
   final String title;
-  final String body;
 
-  Post(
-      {required this.userId,
-      required this.id,
-      required this.title,
-      required this.body});
+  Album({required this.userId, required this.id, required this.title});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
       userId: json['userId'],
       id: json['id'],
       title: json['title'],
-      body: json['body'],
     );
   }
 }
@@ -44,7 +38,7 @@ class Snapshot extends StatefulWidget {
 }
 
 class _SnapshotState extends State<Snapshot> {
-  late Future<Post> futureAlbum;
+  late Future<Album> futureAlbum;
 
   @override
   void initState() {
@@ -55,7 +49,7 @@ class _SnapshotState extends State<Snapshot> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FutureBuilder<Post>(
+      child: FutureBuilder<Album>(
         future: futureAlbum,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

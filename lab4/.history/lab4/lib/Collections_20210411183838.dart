@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<Post> fetchAlbum() async {
-  final response =
-      await http.get(Uri.https('jsonplaceholder.typicode.com', 'posts/1'));
-
-  if (response.statusCode == 200) {
-    return Post.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
+  return http
+      .get(Uri.https('jsonplaceholder.typicode.com', 'albums/2'))
+      .then((response) {
+    if (response.statusCode == 200) {
+      return Post.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load album');
+    }
+  });
 }
 
 class Post {
@@ -36,14 +37,14 @@ class Post {
   }
 }
 
-class Snapshot extends StatefulWidget {
-  Snapshot({Key key = const Key("Snapshot")}) : super(key: key);
+class Collections extends StatefulWidget {
+  Collections({Key key = const Key("Snapshot")}) : super(key: key);
 
   @override
-  _SnapshotState createState() => _SnapshotState();
+  _CollectionsState createState() => _CollectionsState();
 }
 
-class _SnapshotState extends State<Snapshot> {
+class _CollectionsState extends State<Collections> {
   late Future<Post> futureAlbum;
 
   @override
